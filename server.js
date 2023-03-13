@@ -3,6 +3,9 @@ dotenv.config();
 const sequelize = require('./config/database');
 const express = require('express');
 
+// * モデルのインポート
+const User = require('./models/User');
+
 const app = express();
 
 // * appの設定
