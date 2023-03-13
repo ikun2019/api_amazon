@@ -8,6 +8,7 @@ const authRouter = require('./routes/auth');
 
 // * モデルのインポート
 const User = require('./models/User');
+const Product = require('./models/Product');
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // * ルーターのマウント
 app.use('/auth', authRouter);
+
+// * アソシエーション
+
 
 // * データベースと接続してサーバー起動
 sequelize
