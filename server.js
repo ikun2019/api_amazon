@@ -3,6 +3,9 @@ dotenv.config();
 const sequelize = require('./config/database');
 const express = require('express');
 
+// * ルーターのインポート
+const authRouter = require('./routes/auth');
+
 // * モデルのインポート
 const User = require('./models/User');
 
@@ -12,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// * ルーターのマウント
+app.use('/auth', authRouter);
 
 // * データベースと接続してサーバー起動
 sequelize
