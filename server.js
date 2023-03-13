@@ -5,6 +5,7 @@ const express = require('express');
 
 // * ルーターのインポート
 const authRouter = require('./routes/auth');
+const productRouter = require('./routes/product');
 
 // * モデルのインポート
 const User = require('./models/User');
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // * ルーターのマウント
 app.use('/auth', authRouter);
+app.use('/api', productRouter);
 
 // * アソシエーション
 Product.belongsTo(Owner, { constraints: true, onDelete: 'CASCADE' });
