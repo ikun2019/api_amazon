@@ -12,3 +12,5 @@ const Owner = sequelize.define('owner', {
   about: DataTypes.STRING,
   photo: DataTypes.STRING
 });
+
+module.exports = Owner;
