@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const productsController = require('../controllers/products');
+const upload = require('../config/multer.config');
 
 // ! Create a Product
-// * POST => /api/products
-router.post('/products', productsController.postAddProduct);
+router.post('/products', upload.single('photo'), productsController.postAddProduct);
+
 
 // ! Get All Products
 // * GET => /api/products

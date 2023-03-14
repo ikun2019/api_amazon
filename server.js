@@ -14,6 +14,7 @@ const User = require('./models/User');
 const Product = require('./models/Product');
 const Owner = require('./models/Owner');
 const Category = require('./models/Category');
+const multer = require('multer');
 
 const app = express();
 
@@ -37,6 +38,7 @@ Category.hasMany(Product);
 sequelize
   // .sync()
   .sync({ alter: true })
+  // .sync({ force: true })
   .then(result => {
     app.listen(process.env.PORT, () => {
       console.log(`Server is running PORT:${process.env.PORT}`)

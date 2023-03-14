@@ -7,7 +7,7 @@ exports.postAddProduct = async (req, res, next) => {
     const product = new Product();
     product.title = req.body.title;
     product.description = req.body.description;
-    product.photo = req.body.photo;
+    product.photo = req.file.path;
     product.stockQuantity = req.body.stockQuantity;
     await product.save();
 
