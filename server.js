@@ -34,6 +34,7 @@ Category.hasMany(Product);
 sequelize
   // .sync()
   .sync({ alter: true })
+  // .sync({ force: true })
   .then(result => {
     app.listen(process.env.PORT, () => {
       console.log(`Server is running PORT:${process.env.PORT}`)
