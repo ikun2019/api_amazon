@@ -12,6 +12,7 @@ const User = require('./models/User');
 const Product = require('./models/Product');
 const Owner = require('./models/Owner');
 const Category = require('./models/Category');
+const multer = require('multer');
 
 const app = express();
 
