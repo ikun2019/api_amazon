@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 
 // ! Create a Product
+// => /api/products
 exports.postAddProduct = async (req, res, next) => {
   try {
     const product = new Product();
@@ -23,9 +24,58 @@ exports.postAddProduct = async (req, res, next) => {
 }
 
 // ! Get All Products
+exports.getProducts = async (req, res, next) => {
+  try {
+    const products = await Product.findAll();
+    res.status(200).json({
+      success: true,
+      products: products
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
 
 // ! Get a Single Product
+exports.getProduct = async (req, res, next) => {
+  try {
+    const prodId = req.params.id;
+    const product = await Product.findOne({ where: { id: prodId } });
+    res.status(200).json({
+      success: true,
+      product: product
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+};
 
 // ! Update a Product
+exports.updateProduct = async (req, res, next) => {
+  try {
+    const prodId = req.params.id;
+    const product = await Product.findOne({ where: { id: prodId } });
+    product.title = req.body.title;
+    product.description = req.body.description;
+    product.photo = req.file.path;
+    product.stockQuantity = req.body.stockQuantity;
+    await product.save();
+    res.status(200).json({
+      success: true,
+      message: 'Updated a Product'
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+}
 
 // ! Delete a single Product
