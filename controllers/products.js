@@ -44,6 +44,12 @@ exports.getProduct = async (req, res, next) => {
   try {
     const prodId = req.params.id;
     const product = await Product.findOne({ where: { id: prodId } });
+    if (!product) {
+      return res.status(500).json({
+        success: false,
+        message: 'Productが見つかりません'
+      });
+    }
     res.status(200).json({
       success: true,
       product: product
@@ -61,6 +67,12 @@ exports.updateProduct = async (req, res, next) => {
   try {
     const prodId = req.params.id;
     const product = await Product.findOne({ where: { id: prodId } });
+    if (!product) {
+      return res.status(500).json({
+        success: false,
+        message: 'Productが見つかりません'
+      });
+    }
     product.title = req.body.title;
     product.description = req.body.description;
     product.photo = req.file.path;
@@ -79,3 +91,27 @@ exports.updateProduct = async (req, res, next) => {
 }
 
 // ! Delete a single Product
+exports.deleteProduct = async (req, res, next) => {
+  try {
+    const prodId = req.params.id;
+    const product = await Product.findOne({ where: { id: prodId } });
+    if (!product) {
+      return res.status(500).json({
+        success: false,
+        message: 'Productが見つかりません'
+      });
+    }
+    await product.destroy();
+    res.status(200).json({
+      success: true,
+      message: 'productを削除しました'
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+}
+
+// TODO: ownerIDの紐付け
