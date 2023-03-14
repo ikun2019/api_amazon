@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 
 // ! Create a Product
+// => /api/products
 exports.postAddProduct = async (req, res, next) => {
   try {
     const product = new Product();
