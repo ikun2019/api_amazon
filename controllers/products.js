@@ -77,6 +77,7 @@ exports.updateProduct = async (req, res, next) => {
     product.description = req.body.description;
     product.photo = req.file.path;
     product.stockQuantity = req.body.stockQuantity;
+    console.log(req.file);
     await product.save();
     res.status(200).json({
       success: true,
