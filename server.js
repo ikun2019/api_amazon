@@ -21,12 +21,10 @@ const multer = require('multer');
 const app = express();
 
 // * appの設定
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'images')));
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
 
 // * ルーターのマウント
 app.use('/auth', authRouter);

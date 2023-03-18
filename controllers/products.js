@@ -5,6 +5,11 @@ const Product = require('../models/Product');
 exports.postAddProduct = async (req, res, next) => {
   try {
     const product = new Product();
+    // product.setOwner({ ownerID: req.body.ownerID });
+    // product.setCategory({ categoryID: req.body.categoryID });
+    product.ownerId = req.body.ownerID;
+    product.categoryId = req.body.categoryID;
+    product.price = req.body.price;
     product.title = req.body.title;
     product.description = req.body.description;
     product.photo = req.file.path;

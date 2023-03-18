@@ -22,6 +22,7 @@ exports.postOwner = async (req, res, next) => {
     const owner = new Owner();
     owner.name = req.body.name;
     owner.about = req.body.about;
+    owner.photo = req.file.path;
     await owner.save();
     res.status(200).json({
       success: true,
