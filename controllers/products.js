@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Owner = require('../models/Owner');
 
 // ! Create a Product
 // => /api/products
@@ -31,7 +32,7 @@ exports.postAddProduct = async (req, res, next) => {
 // ! Get All Products
 exports.getProducts = async (req, res, next) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({ include: Owner });
     res.status(200).json({
       success: true,
       products: products
