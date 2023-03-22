@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'images')));
 
 // * ルーターのマウント
-app.use('/auth', authRouter);
+app.use('/api', authRouter);
 app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', ownerRouter);
