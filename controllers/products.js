@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Owner = require('../models/Owner');
+const Category = require('../models/Category');
 
 // ! Create a Product
 // => /api/products
@@ -49,7 +50,10 @@ exports.getProducts = async (req, res, next) => {
 exports.getProduct = async (req, res, next) => {
   try {
     const prodId = req.params.id;
-    const product = await Product.findOne({ where: { id: prodId } });
+    const product = await Product.findOne({
+      where: { id: prodId },
+      include: [Owner, Category]
+    });
     if (!product) {
       return res.status(500).json({
         success: false,
