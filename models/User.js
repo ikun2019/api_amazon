@@ -18,12 +18,14 @@ const User = sequelize.define('user', {
     type: DataTypes.STRING,
     allowNull: false
   },
+
   password: {
     type: DataTypes.STRING,
     allowNull: false
   }
 });
 
+// JWT署名
 User.prototype.getSignedJwtToken = function () {
   return jwt.sign(
     { id: this.id },

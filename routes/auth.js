@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const verifyToken = require('../middlewares/verify-token');
 
 // ! ユーザー登録
 // * UI表示
@@ -23,5 +24,26 @@ router.post('/auth/signup', async (req, res, next) => {
     console.log(err);
   }
 });
+
+// ! ログイン
+// * UI表示
+router.get('/auth/user', verifyToken, async (req, res, next) => {
+  try {
+    let foundUser = await User.findOne({ where: { id: req.user.id } });
+    if (foundUser) {
+      res.json({
+        success: true,
+        user: foundUser
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+});
+// * 機能部分
+
 
 module.exports = router;
