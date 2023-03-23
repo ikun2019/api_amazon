@@ -27,6 +27,37 @@ router.post('/auth/signup', async (req, res, next) => {
 
 // ! ログイン
 // * UI表示
+// * 機能部分
+router.post('/auth/login', async (req, res, next) => {
+  try {
+    const foundUser = await User.findOne({ where: { email: req.body.email } });
+    if (!foundUser) {
+      return res.status(403).json({
+        success: false,
+        message: 'ユーザーが見つかりません'
+      });
+    }
+    const isMatch = await foundUser.comparePassword(req.body.password);
+    if (!isMatch) {
+      return res.status(403).json({
+        success: false,
+        message: 'パスワードが一致しません'
+      });
+    }
+    const token = foundUser.getSignedJwtToken();
+    res.status(200).json({
+      success: true,
+      token
+    });
+  } catch (err) {
+    res.status(403).json({
+      success: false,
+      message: err.message
+    });
+  }
+});
+
+// ! ユーザー情報の表示
 router.get('/auth/user', verifyToken, async (req, res, next) => {
   try {
     let foundUser = await User.findOne({ where: { id: req.user.id } });
@@ -43,7 +74,4 @@ router.get('/auth/user', verifyToken, async (req, res, next) => {
     });
   }
 });
-// * 機能部分
-
-
 module.exports = router;
