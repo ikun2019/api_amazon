@@ -10,12 +10,15 @@ const authRouter = require('./routes/auth');
 const productRouter = require('./routes/product');
 const categoryRouter = require('./routes/category');
 const ownerRouter = require('./routes/owner');
+const reviewRouter = require('./routes/review');
 
 // * モデルのインポート
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Owner = require('./models/Owner');
 const Category = require('./models/Category');
+const Review = require('./models/Review');
+
 const multer = require('multer');
 
 const app = express();
@@ -31,12 +34,16 @@ app.use('/api', authRouter);
 app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', ownerRouter);
+app.use('/api', reviewRouter);
 
 // * アソシエーション
 Product.belongsTo(Owner, { constraints: true, onDelete: 'CASCADE' });
 Owner.hasMany(Product);
 Product.belongsTo(Category);
 Category.hasMany(Product);
+Product.hasMany(Review, { constraints: true, onDelete: 'CASCADE' });
+Review.belongsTo(Product);
+Review.belongsTo(User);
 
 // * データベースと接続してサーバー起動
 sequelize
