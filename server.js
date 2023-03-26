@@ -11,6 +11,7 @@ const productRouter = require('./routes/product');
 const categoryRouter = require('./routes/category');
 const ownerRouter = require('./routes/owner');
 const reviewRouter = require('./routes/review');
+const paymentRouter = require('./routes/payment');
 
 // * モデルのインポート
 const User = require('./models/User');
@@ -35,6 +36,7 @@ app.use('/api', productRouter);
 app.use('/api', categoryRouter);
 app.use('/api', ownerRouter);
 app.use('/api', reviewRouter);
+app.use('/api', paymentRouter);
 
 // * アソシエーション
 Product.belongsTo(Owner, { constraints: true, onDelete: 'CASCADE' });
